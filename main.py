@@ -1,9 +1,9 @@
 from spy_details import spy, Spy, ChatMessage, friends
 from steganography.steganography import Steganography
 from datetime import datetime
-STATUS_MESSAGES = ['My name is Bond, James Bond', 'Shaken, not stirred.']
+STATUS_MESSAGES = ["My name is Bond, James Bond", "Shaken, not stirred"]
 
-print "Hello! Let\'s get started"
+print "Hello! Let's get started"  #message first display
 
 choice = raw_input("Do you want to continue as a default user. Press Y/N: ") #start
 
@@ -12,8 +12,8 @@ def add_status():
    if spy.current_status_message != None:
        print "Your current status message is %s \n" % (spy.current_status_message)
    else:
-       print "You don\'t have any status message currently \n"
-       default = raw_input("Do you want to select from the older status (y/n)? ")
+       print "You don't have any status message currently \n"
+       default = raw_input("Do you want to select from the older status (Y/N)? ")
        if default.upper() == "N":
            new_status_message = raw_input("What status message do you want to set? ")
            if len(new_status_message) > 0:
@@ -32,7 +32,7 @@ def add_status():
        if updated_status_message:
            print "Your updated status message is: %s" % (updated_status_message)
        else:
-           print "You current don\'t have a status update"
+           print "You current don't have a status update"
        return updated_status_message
 
 
@@ -71,7 +71,7 @@ def send_message():
         friends[friend_choice].chats.append(new_chat)
         print "Your secret message image is ready!"
     else:
-        print"Please,provide what do you want to say!"
+        print"Please,provide text for secret message"
 
 
 def read_message():
@@ -116,9 +116,9 @@ def start_chat(spy):
         else:
             print"Invalid choice,provide valid please!"
 
-if choice.upper() == "Y":
+if choice.upper() == "Y":           #deafult user
     start_chat(spy)
-elif choice.upper() == "N":
+elif choice.upper() == "N":         #new user
     spy = Spy('','',0,0.0)
     spy.name = raw_input("Welcome to spy chat, you must tell me your spy name first: ")
     if len(spy.name) > 0:
@@ -134,21 +134,21 @@ elif choice.upper() == "N":
             exit(0)
         print"Hi " +spy.salutation+" "+ spy.name + " I want to know more about you"
         spy.age = int(raw_input("What is your age?"))
-        if (spy.age > 12 and spy.age < 50):
+        if (spy.age >= 12 and spy.age <= 50):
             spy.rating = float(raw_input("what is your spy rating"))
-            if (spy.rating > 4.5):
-                print"great ace!"
-            elif (spy.rating > 3.5 and spy.rating < 4.5):
-                print "you are good one spy"
-            elif (spy.rating > 2.5 and spy.rating < 3.5):
-                print "you can always do better"
+            if (spy.rating >= 4.5):
+                print"Great ace!"
+            elif (spy.rating >= 3.5 and spy.rating <= 4.5):
+                print "You are good one spy"
+            elif (spy.rating >= 2.5 and spy.rating <= 3.5):
+                print "You can always do better"
             else:
-                print "we provider helper to you in the office"
+                print "We provider helper to you in the office"
             start_chat(spy)
         else:
-            print"Sorry you are not of valid age to be a spy"
+            print "Sorry you are not of valid age to be a spy"
     else:
-        print 'Please enter a valid spy name'
+        print "Please enter a valid spy name"
 else:
-    print 'enter valid choice'
+    print "enter valid choice"
 
