@@ -73,6 +73,7 @@ def send_message():
         print "Your secret message image is ready!"
     elif len(text)>100:
         print "Don,t speak too much"
+        del friends[friend_choice]
     else:
         print"Please,provide text for secret message"
 
