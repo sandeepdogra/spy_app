@@ -111,8 +111,10 @@ def start_chat(spy):
             read_message()
         elif menu_choice == 5:
             read_chat_history()
-        else:
+        elif menu_choice == 6:
             show_menu = False
+        else:
+            print"Invalid choice,provide valid please!"
 
 if choice.upper() == "Y":
     start_chat(spy)
