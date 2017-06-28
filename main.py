@@ -66,11 +66,13 @@ def send_message():
     original_image = raw_input("What is the name of the image?")
     output_path = "output.jpg"
     text = raw_input("What do you want to say?")
-    if len(text) > 0:
+    if len(text) > 0 and len(text)<= 100:
         Steganography.encode(original_image, output_path, text)
         new_chat = ChatMessage(text,True)
         friends[friend_choice].chats.append(new_chat)
         print "Your secret message image is ready!"
+    elif len(text)>100:
+        print "Don,t speak too much"
     else:
         print"Please,provide text for secret message"
 
