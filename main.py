@@ -1,7 +1,7 @@
 from spy_details import spy, Spy, ChatMessage, friends
 from steganography.steganography import Steganography
 from datetime import datetime
-from colorama import init
+
 STATUS_MESSAGES = ["My name is Bond, James Bond", "Shaken, not stirred"]
 
 print "Hello! Let's get started"  #message first display
@@ -67,10 +67,13 @@ def send_message():
     output_path = "output.jpg"
     text = raw_input("What do you want to say?")
     if len(text) > 0 and len(text)<= 100:
-        Steganography.encode(original_image, output_path, text)
-        new_chat = ChatMessage(text,True)
-        friends[friend_choice].chats.append(new_chat)
-        print "Your secret message image is ready!"
+        if text.upper() == "SOS" or text.upper() == "SAVE ME":
+            print "Please provide help"
+        else:
+            Steganography.encode(original_image, output_path, text)
+            new_chat = ChatMessage(text,True)
+            friends[friend_choice].chats.append(new_chat)
+            print "Your secret message image is ready!"
     elif len(text)>100:
         print "Don,t speak too much"
         del friends[friend_choice]
