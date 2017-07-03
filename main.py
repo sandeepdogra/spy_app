@@ -1,26 +1,26 @@
-from spy_details import spy, Spy, ChatMessage, friends
-from steganography.steganography import Steganography
-from datetime import datetime
+from spy_details import spy, Spy, ChatMessage, friends #import detials from spy_details
+from steganography.steganography import Steganography  #import steganography library
+from datetime import datetime                          #import datetime library
 
-STATUS_MESSAGES = ["My name is Bond, James Bond", "Shaken, not stirred"]
+STATUS_MESSAGES = ["My name is Bond, James Bond", "Shaken, not stirred"] #two default status message
 
-print "Hello! Let's get started"  #message first display
+print "Hello! Let's get started"                        #first display message
 
-choice = raw_input("Do you want to continue as a default user. Press Y/N: ") #start
+choice = raw_input("Do you want to continue as a default user. Press Y/N: ")     #Asking for default or new user
 
-def add_status():
+def add_status():                                        #add_status fucntion 
    updated_status_message = None
    if spy.current_status_message != None:
        print "Your current status message is %s \n" % (spy.current_status_message)
    else:
        print "You don't have any status message currently \n"
-       default = raw_input("Do you want to select from the older status (Y/N)? ")
-       if default.upper() == "N":
+       default = raw_input("Do you want to select from the older status (Y/N)? ") #asking for older or new status message
+       if default.upper() == "N":         #setting new status message
            new_status_message = raw_input("What status message do you want to set? ")
            if len(new_status_message) > 0:
                STATUS_MESSAGES.append(new_status_message)
                updated_status_message = new_status_message
-       elif default.upper() == "Y":
+       elif default.upper() == "Y":      #setting older status message
            item_position = 1
            for message in STATUS_MESSAGES:
                print "%d %s" % (item_position, message)
@@ -37,7 +37,7 @@ def add_status():
        return updated_status_message
 
 
-def add_friend():
+def add_friend():                                        #add_friend function
     new_friend = Spy('','',0,0.0)
     new_friend.name = raw_input("Please add your friend's name: ")
     new_friend.salutation = raw_input("Are they Mr. or Ms.?: ")
@@ -52,7 +52,7 @@ def add_friend():
         print "Sorry! Invalid entry. We can't add friend with the details you provided"
     return len(friends)
 
-def select_a_friend():
+def select_a_friend():                                   #function for selecting a friend
     item_number = 0
     for friend in friends:
         print "%d %s %s aged %d with rating %.2f is online" % (item_number +1, friend.salutation, friend.name ,friend.age, friend.rating)
@@ -61,7 +61,7 @@ def select_a_friend():
     friend_choice_position = int(friend_choice) - 1
     return friend_choice_position
 
-def send_message():
+def send_message():                                      #function for sending message
     friend_choice = select_a_friend()
     original_image = raw_input("What is the name of the image?")
     output_path = "output.jpg"
@@ -81,7 +81,7 @@ def send_message():
         print"Please,provide text for secret message"
 
 
-def read_message():
+def read_message():                                        #function for message reading
     sender = select_a_friend()
     output_path = raw_input("What is the name of the file?")
     secret_text = Steganography.decode(output_path)
@@ -90,7 +90,7 @@ def read_message():
     print "Your secret message has been saved!"
 
 
-def read_chat_history():
+def read_chat_history():                                   #function for reading chat history
     read_for = select_a_friend()
     print "\n6"
     for chat in friends[read_for].chats:
@@ -100,12 +100,13 @@ def read_chat_history():
             print "[%s] %s said: %s" % (chat.time.strftime("%d %B %Y"), friends[read_for].name, chat.message)
 
 
-def start_chat(spy):
-    spy.name = spy.salutation + " " + spy.name
+def start_chat(spy):                                         #start chat function with spy class for spy_deatils
+    spy.name = spy.salutation + " " + spy.name               #using concatenation and storing value in spy.name
     print "Authentication complete. Welcome %s %d %.2f Proud to have you onboard" %(spy.name,spy.age,spy.rating)
     show_menu = True
     while show_menu:
         menu_choices = "What do you want to do? \n 1. Add a status update \n 2. Add a friend \n 3. Send a secret message \n 4. Read a secret message \n 5. Read Chats from a user \n 6. Close Application \n"
+        #choices that user is going to select
         menu_choice = int(raw_input(menu_choices))
         if menu_choice == 1:
             spy.current_status_message = add_status()
@@ -123,12 +124,12 @@ def start_chat(spy):
         else:
             print"Invalid choice,provide valid please!"
 
-if choice.upper() == "Y":           #deafult user
+if choice.upper() == "Y":           #yes for deafult user details
     start_chat(spy)
-elif choice.upper() == "N":         #new user
+elif choice.upper() == "N":         #no for new user details
     spy = Spy('','',0,0.0)
-    spy.name = raw_input("Welcome to spy chat, you must tell me your spy name first: ")
-    if len(spy.name) > 0:
+    spy.name = raw_input("Welcome to spy chat, you must tell me your spy name first: ") #asking name of the spy
+    if len(spy.name) > 0:           #if spy.name is greater then zero then it will ask for further details
         spy.salutation = raw_input("enter M or F for Mr. or Ms.?: ")
         if spy.salutation.upper()== "M":
             spy_salutation = "Mr"
@@ -151,7 +152,7 @@ elif choice.upper() == "N":         #new user
                 print "You can always do better"
             else:
                 print "We provider helper to you in the office"
-            start_chat(spy)
+            start_chat(spy)         #calling start_chat function
         else:
             print "Sorry you are not of valid age to be a spy"
     else:
